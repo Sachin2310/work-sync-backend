@@ -45,6 +45,14 @@ public class DefaultVendorManagementService implements VendorManagementService{
             .orElse(null);
     }
 
+    @Override
+    public List<VendorDTO> getVendorListFromIds(List<String> vendorIds) {
+        return vendorIds.stream()
+            .map(id -> vendors.get(id))
+            .map(this::mapVendorDetailsToVendorDto)
+            .toList();
+    }
+
     private VendorDTO getVendor(String vendorId) {
         var vendorDetails = vendors.get(vendorId);
         return mapVendorDetailsToVendorDto(vendorDetails);
