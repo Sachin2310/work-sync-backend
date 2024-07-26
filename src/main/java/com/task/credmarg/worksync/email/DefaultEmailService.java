@@ -32,7 +32,7 @@ public class DefaultEmailService implements EmailService{
         """;
 
     @Override
-    public void TriggerEmail(List<String> userIds) {
+    public List<VendorDTO> TriggerEmail(List<String> userIds) {
         var vendors = userIds.stream()
             .map(vendorManagementService::getVendorDetails)
             .toList();
@@ -40,6 +40,8 @@ public class DefaultEmailService implements EmailService{
         vendors.stream()
             .map(this::addVendorDetailsToTemplate)
             .forEach(System.out::println);
+
+        return vendors;
     }
 
     private String addVendorDetailsToTemplate(VendorDTO vendorDTO) {

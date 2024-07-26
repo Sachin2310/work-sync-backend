@@ -1,7 +1,9 @@
 package com.task.credmarg.worksync.email;
 
+import com.task.credmarg.worksync.vendor.VendorDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/email")
 @RequiredArgsConstructor
 public class EmailController {
     private final EmailService emailService;
     @PostMapping
-    ResponseEntity<String> triggerEmailToUsers(@RequestBody List<String> userIds){
-        emailService.TriggerEmail(userIds);
-        return ResponseEntity.ok("Email has been sent to selected vendors");
+    ResponseEntity<List<VendorDTO>> triggerEmailToUsers(@RequestBody List<String> userIds){
+        return ResponseEntity.ok(emailService.TriggerEmail(userIds));
     }
 
     @GetMapping
