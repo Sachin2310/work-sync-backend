@@ -1,7 +1,9 @@
 package com.task.credmarg.worksync.employee.service;
 
 import com.task.credmarg.worksync.employee.EmployeeDetails;
+import com.task.credmarg.worksync.employee.EmployeeInformationMapper;
 import com.task.credmarg.worksync.employee.controller.EmployeeDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -9,11 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class InMemoryEmployeeManagementService implements EmployeeManagementService{
+    private final EmployeeInformationMapper employeeInformationMapper;
     Map<Integer, EmployeeDetails> employees = new HashMap<>();
     @Override
     public EmployeeDTO addEmployee(EmployeeDTO employeeDTO) {
-        EmployeeDetails employeeDetails = mapEmployeeDtoToEmployeeDetails(employeeDTO);
+        EmployeeDetails employeeDetails = employeeInformationMapper.employeeDtoToEmployeeDetails(employeeDTO);
         employees.put(employeeDetails.getId(),employeeDetails);
         return employeeDTO;
     }
@@ -22,7 +26,7 @@ public class InMemoryEmployeeManagementService implements EmployeeManagementServ
     public List<EmployeeDTO> getAllEmployees() {
         return employees.values()
             .stream()
-            .map(this::mapEmployeeDetailsToEmployeeDto)
+            .map(employeeInformationMapper::employeeDetailsToEmployeeDto)
             .toList();
     }
 
@@ -36,21 +40,4 @@ public class InMemoryEmployeeManagementService implements EmployeeManagementServ
         return null;
     }
 
-    private EmployeeDetails mapEmployeeDtoToEmployeeDetails(EmployeeDTO employeeDTO){
-        return EmployeeDetails.builder()
-            .id(employeeDTO.getId())
-            .name(employeeDTO.getName())
-            .designation(employeeDTO.getDesignation())
-            .CTC(employeeDTO.getCTC())
-            .email(employeeDTO.getEmail())
-            .build();
-    }
-    private EmployeeDTO mapEmployeeDetailsToEmployeeDto(EmployeeDetails employeeDetails){
-        return new EmployeeDTO(
-            employeeDetails.getId(),
-            employeeDetails.getName(),
-            employeeDetails.getDesignation(),
-            employeeDetails.getCTC(),
-            employeeDetails.getEmail());
-    }
 }
