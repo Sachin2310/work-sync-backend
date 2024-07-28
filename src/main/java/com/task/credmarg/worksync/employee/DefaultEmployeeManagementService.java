@@ -1,47 +1,50 @@
 package com.task.credmarg.worksync.employee;
 
+import com.task.credmarg.worksync.employee.controller.EmployeeDTO;
 import com.task.credmarg.worksync.employee.models.EmployeeDetails;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class DefaultEmployeeManagementService implements EmployeeManagementService{
-    Map<String, EmployeeDetails> employees = new HashMap<>();
+    private final EmployeeRepository employeeRepository;
+
     @Override
     public EmployeeDTO addEmployee(EmployeeDTO employeeDTO) {
         EmployeeDetails employeeDetails = mapEmployeeDtoToEmployeeDetails(employeeDTO);
-        employees.put(employeeDetails.getId(),employeeDetails);
+        var savedEmployee = employeeRepository.save(employeeDetails);
+        employeeDTO.setId(savedEmployee.getId());
         return employeeDTO;
     }
 
     @Override
     public List<EmployeeDTO> getAllEmployees() {
-        return employees.values()
-            .stream()
+        return employeeRepository.findAll().stream()
             .map(this::mapEmployeeDetailsToEmployeeDto)
             .toList();
     }
 
     @Override
-    public EmployeeDTO getEmployee(String employeeId) {
-        return null;
+    public EmployeeDTO getEmployee(int employeeId) {
+        return employeeRepository.findById(employeeId)
+            .map(this::mapEmployeeDetailsToEmployeeDto)
+            .orElse(null);
     }
 
     @Override
-    public EmployeeDTO deleteEmployee(String employeeId) {
+    public EmployeeDTO deleteEmployee(int employeeId) {
         return null;
     }
 
     private EmployeeDetails mapEmployeeDtoToEmployeeDetails(EmployeeDTO employeeDTO){
         return EmployeeDetails.builder()
-            .id(employeeDTO.id())
-            .name(employeeDTO.name())
-            .designation(employeeDTO.designation())
-            .CTC(employeeDTO.CTC())
-            .email(employeeDTO.email())
+            .name(employeeDTO.getName())
+            .designation(employeeDTO.getDesignation())
+            .CTC(employeeDTO.getCTC())
+            .email(employeeDTO.getEmail())
             .build();
     }
     private EmployeeDTO mapEmployeeDetailsToEmployeeDto(EmployeeDetails employeeDetails){
