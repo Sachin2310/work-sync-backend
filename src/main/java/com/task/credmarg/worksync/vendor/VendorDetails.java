@@ -1,4 +1,4 @@
-package com.task.credmarg.worksync.vendor.models;
+package com.task.credmarg.worksync.vendor;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

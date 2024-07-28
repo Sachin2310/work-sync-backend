@@ -1,7 +1,9 @@
-package com.task.credmarg.worksync.vendor;
+package com.task.credmarg.worksync.vendor.service;
 
+import com.task.credmarg.worksync.vendor.VendorInformationMapper;
 import com.task.credmarg.worksync.vendor.controller.VendorDTO;
-import com.task.credmarg.worksync.vendor.models.VendorDetails;
+import com.task.credmarg.worksync.vendor.VendorDetails;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -9,30 +11,23 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class DefaultVendorManagementService implements VendorManagementService{
+@RequiredArgsConstructor
+public class InMemoryVendorManagementService implements VendorManagementService {
+    private final VendorInformationMapper vendorInformationMapper;
     Map<Integer,VendorDetails> vendors = new HashMap<>();
 
     @Override
     public VendorDTO addVendorDetails(VendorDTO vendorDTO) {
-        VendorDetails vendorDetails = mapVendorDtoToVendorDetails(vendorDTO);
+        VendorDetails vendorDetails = vendorInformationMapper.vendorDtoToVendorDetails(vendorDTO);
         vendors.put(vendorDetails.getId(), vendorDetails);
         return vendorDTO;
-    }
-
-    private VendorDetails mapVendorDtoToVendorDetails(VendorDTO vendorDTO) {
-        return VendorDetails.builder()
-            .id(vendorDTO.getId())
-            .name(vendorDTO.getName())
-            .email(vendorDTO.getEmail())
-            .upi(vendorDTO.getUpi())
-            .build();
     }
 
     @Override
     public List<VendorDTO> getAllVendors() {
         return vendors.values()
             .stream()
-            .map(this::mapVendorDetailsToVendorDto)
+            .map(vendorInformationMapper::vendorDetailsToVendorDto)
             .toList();
     }
 
@@ -50,20 +45,12 @@ public class DefaultVendorManagementService implements VendorManagementService{
     public List<VendorDTO> getVendorListFromIds(List<Integer> vendorIds) {
         return vendorIds.stream()
             .map(id -> vendors.get(id))
-            .map(this::mapVendorDetailsToVendorDto)
+            .map(vendorInformationMapper::vendorDetailsToVendorDto)
             .toList();
     }
 
     private VendorDTO getVendor(int vendorId) {
         var vendorDetails = vendors.get(vendorId);
-        return mapVendorDetailsToVendorDto(vendorDetails);
-    }
-
-    private VendorDTO mapVendorDetailsToVendorDto(VendorDetails vendorDetails) {
-        return new VendorDTO(
-            vendorDetails.getId(),
-            vendorDetails.getName(),
-            vendorDetails.getEmail(),
-            vendorDetails.getUpi());
+        return vendorInformationMapper.vendorDetailsToVendorDto(vendorDetails);
     }
 }

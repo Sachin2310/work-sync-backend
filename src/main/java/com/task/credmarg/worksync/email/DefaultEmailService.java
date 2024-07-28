@@ -1,7 +1,7 @@
 package com.task.credmarg.worksync.email;
 
 import com.task.credmarg.worksync.vendor.controller.VendorDTO;
-import com.task.credmarg.worksync.vendor.VendorManagementService;
+import com.task.credmarg.worksync.vendor.service.VendorManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

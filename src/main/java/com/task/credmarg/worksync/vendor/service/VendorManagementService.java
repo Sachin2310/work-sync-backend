@@ -1,4 +1,4 @@
-package com.task.credmarg.worksync.vendor;
+package com.task.credmarg.worksync.vendor.service;
 
 import com.task.credmarg.worksync.vendor.controller.VendorDTO;
 

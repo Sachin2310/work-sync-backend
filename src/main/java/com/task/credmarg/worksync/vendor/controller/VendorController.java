@@ -1,6 +1,6 @@
 package com.task.credmarg.worksync.vendor.controller;
 
-import com.task.credmarg.worksync.vendor.VendorManagementService;
+import com.task.credmarg.worksync.vendor.service.VendorManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
