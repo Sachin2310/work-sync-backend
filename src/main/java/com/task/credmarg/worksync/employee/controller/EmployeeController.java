@@ -1,6 +1,6 @@
 package com.task.credmarg.worksync.employee.controller;
 
-import com.task.credmarg.worksync.employee.EmployeeManagementService;
+import com.task.credmarg.worksync.employee.service.EmployeeManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

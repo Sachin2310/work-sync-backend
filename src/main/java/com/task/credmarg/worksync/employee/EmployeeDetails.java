@@ -1,4 +1,4 @@
-package com.task.credmarg.worksync.employee.models;
+package com.task.credmarg.worksync.employee;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package com.task.credmarg.worksync.employee;
+package com.task.credmarg.worksync.employee.service;
 
 
 import com.task.credmarg.worksync.employee.controller.EmployeeDTO;

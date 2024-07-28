@@ -1,15 +1,18 @@
-package com.task.credmarg.worksync.employee;
+package com.task.credmarg.worksync.employee.service;
 
+import com.task.credmarg.worksync.employee.EmployeeDetails;
+import com.task.credmarg.worksync.employee.EmployeeRepository;
 import com.task.credmarg.worksync.employee.controller.EmployeeDTO;
-import com.task.credmarg.worksync.employee.models.EmployeeDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Primary
 @RequiredArgsConstructor
-public class DefaultEmployeeManagementService implements EmployeeManagementService{
+public class DefaultEmployeeManagementService implements EmployeeManagementService {
     private final EmployeeRepository employeeRepository;
 
     @Override
