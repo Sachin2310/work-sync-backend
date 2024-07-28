@@ -1,6 +1,6 @@
 package com.task.credmarg.worksync.email;
 
-import com.task.credmarg.worksync.vendor.VendorDTO;
+import com.task.credmarg.worksync.vendor.controller.VendorDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +19,7 @@ import java.util.List;
 public class EmailController {
     private final EmailService emailService;
     @PostMapping
-    ResponseEntity<List<VendorDTO>> triggerEmailToUsers(@RequestBody List<String> userIds){
+    ResponseEntity<List<VendorDTO>> triggerEmailToUsers(@RequestBody List<Integer> userIds){
         return ResponseEntity.ok(emailService.TriggerEmail(userIds));
     }
 

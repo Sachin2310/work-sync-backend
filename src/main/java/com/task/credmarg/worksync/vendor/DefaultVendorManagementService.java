@@ -1,5 +1,6 @@
 package com.task.credmarg.worksync.vendor;
 
+import com.task.credmarg.worksync.vendor.controller.VendorDTO;
 import com.task.credmarg.worksync.vendor.models.VendorDetails;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.Map;
 
 @Service
 public class DefaultVendorManagementService implements VendorManagementService{
-    Map<String,VendorDetails> vendors = new HashMap<>();
+    Map<Integer,VendorDetails> vendors = new HashMap<>();
 
     @Override
     public VendorDTO addVendorDetails(VendorDTO vendorDTO) {
@@ -20,10 +21,10 @@ public class DefaultVendorManagementService implements VendorManagementService{
 
     private VendorDetails mapVendorDtoToVendorDetails(VendorDTO vendorDTO) {
         return VendorDetails.builder()
-            .id(vendorDTO.id())
-            .name(vendorDTO.name())
-            .email(vendorDTO.email())
-            .upi(vendorDTO.upi())
+            .id(vendorDTO.getId())
+            .name(vendorDTO.getName())
+            .email(vendorDTO.getEmail())
+            .upi(vendorDTO.getUpi())
             .build();
     }
 
@@ -36,7 +37,7 @@ public class DefaultVendorManagementService implements VendorManagementService{
     }
 
     @Override
-    public VendorDTO getVendorDetails(String vendorId) {
+    public VendorDTO getVendorDetails(int vendorId) {
         return vendors.keySet()
             .stream()
             .filter(id -> id.equals(vendorId))
@@ -46,14 +47,14 @@ public class DefaultVendorManagementService implements VendorManagementService{
     }
 
     @Override
-    public List<VendorDTO> getVendorListFromIds(List<String> vendorIds) {
+    public List<VendorDTO> getVendorListFromIds(List<Integer> vendorIds) {
         return vendorIds.stream()
             .map(id -> vendors.get(id))
             .map(this::mapVendorDetailsToVendorDto)
             .toList();
     }
 
-    private VendorDTO getVendor(String vendorId) {
+    private VendorDTO getVendor(int vendorId) {
         var vendorDetails = vendors.get(vendorId);
         return mapVendorDetailsToVendorDto(vendorDetails);
     }

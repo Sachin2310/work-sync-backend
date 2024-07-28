@@ -1,5 +1,6 @@
-package com.task.credmarg.worksync.vendor;
+package com.task.credmarg.worksync.vendor.controller;
 
+import com.task.credmarg.worksync.vendor.VendorManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +31,7 @@ public class VendorController {
     }
 
     @PostMapping("/list")
-    ResponseEntity<List<VendorDTO>> getParticularVendor(@RequestBody List<String> vendorIds){
+    ResponseEntity<List<VendorDTO>> getParticularVendor(@RequestBody List<Integer> vendorIds){
         return ResponseEntity.ok(vendorManagementService.getVendorListFromIds(vendorIds));
     }
 }

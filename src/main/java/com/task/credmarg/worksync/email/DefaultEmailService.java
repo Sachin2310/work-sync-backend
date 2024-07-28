@@ -1,6 +1,6 @@
 package com.task.credmarg.worksync.email;
 
-import com.task.credmarg.worksync.vendor.VendorDTO;
+import com.task.credmarg.worksync.vendor.controller.VendorDTO;
 import com.task.credmarg.worksync.vendor.VendorManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class DefaultEmailService implements EmailService{
     private final VendorManagementService vendorManagementService;
-    private final Map<String,String> emailsSent = new HashMap<>();
+    private final Map<Integer,String> emailsSent = new HashMap<>();
 
     private static final String emailTemplate = """
         To: {email}
@@ -32,7 +32,7 @@ public class DefaultEmailService implements EmailService{
         """;
 
     @Override
-    public List<VendorDTO> TriggerEmail(List<String> userIds) {
+    public List<VendorDTO> TriggerEmail(List<Integer> userIds) {
         var vendors = userIds.stream()
             .map(vendorManagementService::getVendorDetails)
             .toList();
@@ -46,11 +46,11 @@ public class DefaultEmailService implements EmailService{
 
     private String addVendorDetailsToTemplate(VendorDTO vendorDTO) {
         var emailWithVendorDetails = emailTemplate
-            .replace("{email}",vendorDTO.email())
-            .replace("{name}",vendorDTO.name())
-            .replace("{upi}",vendorDTO.upi());
+            .replace("{email}",vendorDTO.getEmail())
+            .replace("{name}",vendorDTO.getName())
+            .replace("{upi}",vendorDTO.getUpi());
 
-        emailsSent.put(vendorDTO.id(), emailWithVendorDetails);
+        emailsSent.put(vendorDTO.getId(), emailWithVendorDetails);
         return emailWithVendorDetails;
     }
 
