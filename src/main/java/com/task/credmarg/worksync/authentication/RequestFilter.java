@@ -1,6 +1,6 @@
 // package com.task.credmarg.worksync.authentication;
 //
-// import com.task.credmarg.worksync.authentication.user.UserManagementService;
+// import com.task.credmarg.worksync.authentication.user.service.UserManagementService;
 // import jakarta.servlet.Filter;
 // import jakarta.servlet.FilterChain;
 // import jakarta.servlet.ServletException;

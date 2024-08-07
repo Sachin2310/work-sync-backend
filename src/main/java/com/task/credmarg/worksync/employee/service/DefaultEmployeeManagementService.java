@@ -1,6 +1,5 @@
 package com.task.credmarg.worksync.employee.service;
 
-import com.task.credmarg.worksync.employee.EmployeeDetails;
 import com.task.credmarg.worksync.employee.EmployeeInformationMapper;
 import com.task.credmarg.worksync.employee.EmployeeRepository;
 import com.task.credmarg.worksync.employee.controller.EmployeeDTO;
@@ -18,7 +17,7 @@ public class DefaultEmployeeManagementService implements EmployeeManagementServi
 
     @Override
     public EmployeeDTO addEmployee(EmployeeDTO employeeDTO) {
-        EmployeeDetails employeeDetails = employeeInformationMapper.employeeDtoToEmployeeDetails(employeeDTO);
+        var employeeDetails = employeeInformationMapper.employeeDtoToEmployeeDetails(employeeDTO);
         var savedEmployee = employeeRepository.save(employeeDetails);
         employeeDTO.setId(savedEmployee.getId());
         return employeeDTO;
