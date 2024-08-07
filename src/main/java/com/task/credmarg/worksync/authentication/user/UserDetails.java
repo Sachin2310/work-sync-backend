@@ -1,3 +1,3 @@
 package com.task.credmarg.worksync.authentication.user;
 
-public record UserDetails(String userName, String password) {}
+public record UserDetails(String userName, String email, String password) {}
