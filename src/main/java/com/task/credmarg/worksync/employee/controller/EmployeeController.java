@@ -1,6 +1,8 @@
 package com.task.credmarg.worksync.employee.controller;
 
 import com.task.credmarg.worksync.employee.service.EmployeeManagementService;
+import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,27 +13,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @CrossOrigin
 @RestController
 @RequestMapping("/api/employee")
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeManagementService employeeManagementService;
-    //add controller advice
+    // add controller advice
 
     @PostMapping
-    ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO){
+    ResponseEntity<EmployeeDTO> createEmployee(@RequestBody @Valid EmployeeDTO employeeDTO) {
         return ResponseEntity.ok(employeeManagementService.addEmployee(employeeDTO));
     }
+
     @GetMapping
-    ResponseEntity<List<EmployeeDTO>> getAllEmployees(){
+    ResponseEntity<List<EmployeeDTO>> getAllEmployees() {
         return ResponseEntity.ok(employeeManagementService.getAllEmployees());
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable int id){
+    ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable int id) {
         return ResponseEntity.ok(employeeManagementService.getEmployee(id));
     }
 }

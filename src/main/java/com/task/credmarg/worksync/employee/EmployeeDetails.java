@@ -17,11 +17,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "employee")
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeDetails{
+public class EmployeeDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_generator")
     @SequenceGenerator(name = "employee_generator", sequenceName = "employee_seq", allocationSize = 1)
     private int id;
+
     private String name;
     private String designation;
     private Long CTC;

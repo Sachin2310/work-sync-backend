@@ -4,11 +4,10 @@ import com.task.credmarg.worksync.employee.EmployeeDetails;
 import com.task.credmarg.worksync.employee.EmployeeInformationMapper;
 import com.task.credmarg.worksync.employee.EmployeeRepository;
 import com.task.credmarg.worksync.employee.controller.EmployeeDTO;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Primary
@@ -28,20 +27,20 @@ public class DefaultEmployeeManagementService implements EmployeeManagementServi
     @Override
     public List<EmployeeDTO> getAllEmployees() {
         return employeeRepository.findAll().stream()
-            .map(employeeInformationMapper::employeeDetailsToEmployeeDto)
-            .toList();
+                .map(employeeInformationMapper::employeeDetailsToEmployeeDto)
+                .toList();
     }
 
     @Override
     public EmployeeDTO getEmployee(int employeeId) {
-        return employeeRepository.findById(employeeId)
-            .map(employeeInformationMapper::employeeDetailsToEmployeeDto)
-            .orElse(null);
+        return employeeRepository
+                .findById(employeeId)
+                .map(employeeInformationMapper::employeeDetailsToEmployeeDto)
+                .orElse(null);
     }
 
     @Override
     public EmployeeDTO deleteEmployee(int employeeId) {
         return null;
     }
-
 }

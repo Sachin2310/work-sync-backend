@@ -17,11 +17,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "vendor")
 @NoArgsConstructor
 @AllArgsConstructor
-public class VendorDetails{
+public class VendorDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vendor_generator")
     @SequenceGenerator(name = "vendor_generator", sequenceName = "vendor_seq", allocationSize = 1)
     private int id;
+
     private String name;
     private String email;
     private String upi;

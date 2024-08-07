@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
     private final UserManagementService userManagementService;
+
     @PostMapping
-    ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO){
+    ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userManagementService.addUser(userDTO));
     }
 
     @GetMapping
-    ResponseEntity<Boolean> verifyUserDetails(@RequestBody UserDTO userDTO){
+    ResponseEntity<Boolean> verifyUserDetails(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userManagementService.verifyUser(userDTO));
     }
 }

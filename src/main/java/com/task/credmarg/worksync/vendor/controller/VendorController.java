@@ -1,6 +1,7 @@
 package com.task.credmarg.worksync.vendor.controller;
 
 import com.task.credmarg.worksync.vendor.service.VendorManagementService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,28 +11,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @CrossOrigin
 @RestController
 @RequestMapping("/api/vendor")
 @RequiredArgsConstructor
 public class VendorController {
     private final VendorManagementService vendorManagementService;
-    //add controller advice
+    // add controller advice
 
     @PostMapping
-    ResponseEntity<VendorDTO> createVendorData(@RequestBody VendorDTO vendorDTO){
+    ResponseEntity<VendorDTO> createVendorData(@RequestBody VendorDTO vendorDTO) {
         return ResponseEntity.ok(vendorManagementService.addVendorDetails(vendorDTO));
     }
 
     @GetMapping
-    ResponseEntity<List<VendorDTO>> getAllVendors(){
+    ResponseEntity<List<VendorDTO>> getAllVendors() {
         return ResponseEntity.ok(vendorManagementService.getAllVendors());
     }
 
     @PostMapping("/list")
-    ResponseEntity<List<VendorDTO>> getParticularVendor(@RequestBody List<Integer> vendorIds){
+    ResponseEntity<List<VendorDTO>> getParticularVendor(@RequestBody List<Integer> vendorIds) {
         return ResponseEntity.ok(vendorManagementService.getVendorListFromIds(vendorIds));
     }
 }

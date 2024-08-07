@@ -7,18 +7,15 @@ import org.springframework.stereotype.Service;
 public class VendorInformationMapper {
     public VendorDTO vendorDetailsToVendorDto(VendorDetails vendorDetails) {
         return new VendorDTO(
-            vendorDetails.getId(),
-            vendorDetails.getName(),
-            vendorDetails.getEmail(),
-            vendorDetails.getUpi());
+                vendorDetails.getId(), vendorDetails.getName(), vendorDetails.getEmail(), vendorDetails.getUpi());
     }
 
     public VendorDetails vendorDtoToVendorDetails(VendorDTO vendorDTO) {
         return VendorDetails.builder()
-            .id(vendorDTO.getId())
-            .name(vendorDTO.getName())
-            .email(vendorDTO.getEmail())
-            .upi(vendorDTO.getUpi())
-            .build();
+                .id(vendorDTO.getId())
+                .name(vendorDTO.getName())
+                .email(vendorDTO.getEmail())
+                .upi(vendorDTO.getUpi())
+                .build();
     }
 }
