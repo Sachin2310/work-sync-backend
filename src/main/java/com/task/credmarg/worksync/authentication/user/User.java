@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "userDetails")
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
     @SequenceGenerator(name = "user_generator", sequenceName = "user_seq", allocationSize = 1)
@@ -26,4 +27,5 @@ public class UserDetails {
     private String userName;
     private String email;
     private String password;
+    private Set<Role> authorities;
 }

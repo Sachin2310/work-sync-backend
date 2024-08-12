@@ -3,6 +3,7 @@ package com.task.credmarg.worksync.vendor.controller;
 import com.task.credmarg.worksync.vendor.service.VendorManagementService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ public class VendorController {
 
     @PostMapping
     ResponseEntity<VendorDTO> createVendorData(@RequestBody VendorDTO vendorDTO) {
-        return ResponseEntity.ok(vendorManagementService.addVendorDetails(vendorDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(vendorManagementService.addVendorDetails(vendorDTO));
     }
 
     @GetMapping

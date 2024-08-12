@@ -1,9 +1,11 @@
 package com.task.credmarg.worksync.authentication.user.service;
 
-import com.task.credmarg.worksync.authentication.user.controller.UserDTO;
+import com.task.credmarg.worksync.authentication.user.controller.CreateUserRequest;
 
 public interface UserManagementService {
-    UserDTO addUser(UserDTO userDTO);
+    CreateUserRequest addUser(CreateUserRequest createUserRequest);
 
-    boolean verifyUser(UserDTO userDTO);
+    boolean verifyUser(CreateUserRequest createUserRequest);
+
+    boolean isValidUser(String userEmail);
 }

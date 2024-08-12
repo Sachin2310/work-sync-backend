@@ -4,6 +4,7 @@ import com.task.credmarg.worksync.employee.service.EmployeeManagementService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class EmployeeController {
 
     @PostMapping
     ResponseEntity<EmployeeDTO> createEmployee(@RequestBody @Valid EmployeeDTO employeeDTO) {
-        return ResponseEntity.ok(employeeManagementService.addEmployee(employeeDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(employeeManagementService.addEmployee(employeeDTO));
     }
 
     @GetMapping

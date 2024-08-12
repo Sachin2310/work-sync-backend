@@ -1,3 +1,5 @@
+
+# Spring configuration
 spring:
   application:
     name: worksync
@@ -16,13 +18,13 @@ spring:
 #      hibernate:
 #        dialect: org.hibernate.dialect.PostgreSQLDialect
 
+# Setting request prefix
+server:
+  servlet:
+    contextPath: /worksync
 
-#logging:
-#  level:
-#    org:
-#      hibernate:
-#        SQL: DEBUG
-#        type:
-#          descriptor:
-#            sql:
-#              BasicBinder: TRACE
+# Logging
+#logging.level:
+#    root: DEBUG
+#    org.springframework:
+#        security: TRACE
