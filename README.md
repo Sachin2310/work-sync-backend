@@ -5,6 +5,7 @@ Email Structure which will be sent to vendors: <br>
 Different Project Iterations - <br>
 First: Used In-memory(maps) to save user data <br>
 Second: Added postgreSql to persist information <br>
+Third: Spring security and JWT authentication <br>
 
 
 
