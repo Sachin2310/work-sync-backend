@@ -1,7 +1,7 @@
 package com.task.credmarg.worksync.authentication.user.service;
 
 import com.task.credmarg.worksync.authentication.user.User;
-import com.task.credmarg.worksync.authentication.user.controller.CreateUserRequest;
+import com.task.credmarg.worksync.authentication.user.controller.SignUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 public class UserInformationMapper {
     private final PasswordEncoder passwordEncoder;
 
-    public User toUserDetails(CreateUserRequest createUserRequest) {
+    public User toUserDetails(SignUpRequest signUpRequest) {
         return User.builder()
-                .userName(createUserRequest.userName())
-                .email(createUserRequest.email())
-                .password(passwordEncoder.encode(createUserRequest.password()))
+                .userName(signUpRequest.name())
+                .email(signUpRequest.email())
+                .password(passwordEncoder.encode(signUpRequest.password()))
                 .build();
     }
 }

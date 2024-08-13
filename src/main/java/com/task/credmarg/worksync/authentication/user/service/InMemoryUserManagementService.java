@@ -22,7 +22,7 @@
 //
 //    private User mapUserDtoToUserDetails(UserDTO userDTO) {
 //        return User.builder()
-//                .userName(userDTO.getUserName())
+//                .name(userDTO.getUserName())
 //                .email(userDTO.getEmail())
 //                .password(userDTO.getPassword())
 //                .build();

@@ -8,13 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-//@CrossOrigin
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -24,8 +22,8 @@ public class UserAuthenticationController {
     private final JwtManager jwtManager;
 
     @PostMapping("/signup")
-    ResponseEntity<CreateUserRequest> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userManagementService.addUser(createUserRequest));
+    ResponseEntity<SignUpRequest> createUser(@RequestBody @Valid SignUpRequest signUpRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userManagementService.addUser(signUpRequest));
     }
 
     @PostMapping("/login")

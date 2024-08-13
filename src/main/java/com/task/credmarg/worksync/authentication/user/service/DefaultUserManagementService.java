@@ -2,7 +2,7 @@ package com.task.credmarg.worksync.authentication.user.service;
 
 import com.task.credmarg.worksync.authentication.user.User;
 import com.task.credmarg.worksync.authentication.user.UserRepository;
-import com.task.credmarg.worksync.authentication.user.controller.CreateUserRequest;
+import com.task.credmarg.worksync.authentication.user.controller.SignUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,16 +17,16 @@ public class DefaultUserManagementService implements UserManagementService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public CreateUserRequest addUser(CreateUserRequest createUserRequest) {
-        var userDetails = userInformationMapper.toUserDetails(createUserRequest);
+    public SignUpRequest addUser(SignUpRequest signUpRequest) {
+        var userDetails = userInformationMapper.toUserDetails(signUpRequest);
         userRepository.save(userDetails);
-        return createUserRequest;
+        return signUpRequest;
     }
 
     @Override
-    public boolean verifyUser(CreateUserRequest createUserRequest) {
-        var optionalUser = userRepository.findByEmail(createUserRequest.email());
-        return optionalUser.map(user -> matchDetails(createUserRequest, user)).orElse(false);
+    public boolean verifyUser(SignUpRequest signUpRequest) {
+        var optionalUser = userRepository.findByEmail(signUpRequest.email());
+        return optionalUser.map(user -> matchDetails(signUpRequest, user)).orElse(false);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class DefaultUserManagementService implements UserManagementService {
         return userRepository.findByEmail(userEmail).isPresent();
     }
 
-    private boolean matchDetails(CreateUserRequest toVerify, User realDetails) {
+    private boolean matchDetails(SignUpRequest toVerify, User realDetails) {
         return passwordEncoder.matches(toVerify.password(), realDetails.getPassword());
     }
 }

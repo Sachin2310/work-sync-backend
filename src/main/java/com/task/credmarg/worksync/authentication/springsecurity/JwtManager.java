@@ -57,6 +57,6 @@ public class JwtManager {
 
     // No usage for now
     private Map<String, String> createClaimsFromUserDetails(User userDetails) {
-        return Map.of("email", userDetails.getEmail(), "userName", userDetails.getUserName());
+        return Map.of("email", userDetails.getEmail(), "name", userDetails.getUserName());
     }
 }
