@@ -16,23 +16,28 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsServiceImplementation userDetailsService;
     private final JwtManager jwtManager;
+    private final FilterErrorHandling filterErrorHandling;
 
     @Override
     @SneakyThrows
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
-        var accessToken = request.getHeader("Authorization");
-        if (accessToken == null) {
+        try {
+            var accessToken = request.getHeader("Authorization");
+            if (accessToken == null) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+            var slicedToken = accessToken.substring(7);
+            var userEmail = jwtManager.extractUserEmail(slicedToken);
+            var userDetails = userDetailsService.loadUserByUsername(userEmail);
+            if (jwtManager.isTokenValid(slicedToken)) {
+                var authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, null);
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
             filterChain.doFilter(request, response);
-            return;
+        } catch (Exception e) {
+            filterErrorHandling.setErrorResponse(e, response);
         }
-        var slicedToken = accessToken.substring(7);
-        var userEmail = jwtManager.extractUserEmail(slicedToken);
-        var userDetails = userDetailsService.loadUserByUsername(userEmail);
-        if (jwtManager.isTokenValid(slicedToken)) {
-            var authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, null);
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        }
-        filterChain.doFilter(request, response);
     }
 }

@@ -8,6 +8,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Map;
 import javax.crypto.SecretKey;
+import lombok.SneakyThrows;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class JwtManager {
     private static final long TOKEN_LIFE_TIME = 30;
     private static final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build();
 
+    @SneakyThrows
     public String generateToken(String userEmail) {
         var now = Instant.now();
         return Jwts.builder()
@@ -47,6 +49,7 @@ public class JwtManager {
         return getTokenPayload(token).getExpiration().toInstant().isAfter(Instant.now());
     }
 
+    @SneakyThrows
     private Claims getTokenPayload(String token) {
         return Jwts.parser()
                 .verifyWith(SECRET_KEY)
