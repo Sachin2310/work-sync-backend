@@ -6,6 +6,7 @@ import com.task.credmarg.worksync.employee.controller.EmployeeDTO;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +19,8 @@ public class DefaultEmployeeManagementService implements EmployeeManagementServi
     @Override
     public EmployeeDTO addEmployee(EmployeeDTO employeeDTO) {
         var employeeDetails = employeeInformationMapper.employeeDtoToEmployeeDetails(employeeDTO);
+        employeeDetails.setUserEmail(
+                SecurityContextHolder.getContext().getAuthentication().getName());
         var savedEmployee = employeeRepository.save(employeeDetails);
         employeeDTO.setId(savedEmployee.getId());
         return employeeDTO;
@@ -25,15 +28,17 @@ public class DefaultEmployeeManagementService implements EmployeeManagementServi
 
     @Override
     public List<EmployeeDTO> getAllEmployees() {
-        return employeeRepository.findAll().stream()
+        var userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        return employeeRepository.findByUserEmail(userEmail).stream()
                 .map(employeeInformationMapper::employeeDetailsToEmployeeDto)
                 .toList();
     }
 
     @Override
     public EmployeeDTO getEmployee(int employeeId) {
+        var userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         return employeeRepository
-                .findById(employeeId)
+                .findByIdAndUserEmail(employeeId, userEmail)
                 .map(employeeInformationMapper::employeeDetailsToEmployeeDto)
                 .orElse(null);
     }

@@ -1,5 +1,6 @@
 package com.task.credmarg.worksync.vendor;
 
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,4 +27,7 @@ public class VendorDetails {
     private String name;
     private String email;
     private String upi;
+
+    @JsonPropertyDescription("Foreign key from userDetails table")
+    private String userEmail;
 }

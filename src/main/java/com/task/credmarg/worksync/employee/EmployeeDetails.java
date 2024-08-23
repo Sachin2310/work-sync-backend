@@ -1,5 +1,6 @@
 package com.task.credmarg.worksync.employee;
 
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,4 +28,7 @@ public class EmployeeDetails {
     private String designation;
     private Long CTC;
     private String email;
+
+    @JsonPropertyDescription("Foreign key from userDetails table")
+    private String userEmail;
 }
