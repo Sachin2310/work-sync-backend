@@ -19,7 +19,7 @@ public class UserExceptionHandler {
         JwtException.class
     })
     public ResponseEntity<ApiError> AuthenticationExceptionHandler(Exception ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiError(401, "invalid_token", ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiError(401, "invalid_token", ex.getMessage()));
     }
 
     @ExceptionHandler({InternalAuthenticationServiceException.class})
@@ -30,11 +30,12 @@ public class UserExceptionHandler {
 
     @ExceptionHandler({UserNotFoundException.class})
     public ResponseEntity<ApiError> UserNotFoundExceptionExceptionHandler(UserNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiError(404, "user_not_found", ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiError(404, "user_not_found", ex.getMessage()));
     }
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<ApiError> CommonExceptionHandler(Exception ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiError(500, "error", ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ApiError(500, "error", ex.getMessage()));
     }
 }

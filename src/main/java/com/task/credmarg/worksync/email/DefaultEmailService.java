@@ -20,7 +20,7 @@ public class DefaultEmailService implements EmailService {
         Subject: payment receipt
 
         Dear {name},
-        Your payment has been process with the below details,
+        Your payment has been processed with the below details,
         Vendor Name: {name}
         UPI id: {upi}
         Thank you for your continued partnership.
@@ -28,7 +28,6 @@ public class DefaultEmailService implements EmailService {
         Best regards,
         Sachin
         Solution Architect
-        Credmarg
         """;
 
     @Override
