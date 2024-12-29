@@ -1,0 +1,31 @@
+
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: jamescurl10/worksync-backend:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/worksync
+      SPRING_DATASOURCE_USERNAME: test
+      SPRING_DATASOURCE_PASSWORD: king
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+#    platform: linux/amd64
+
+  db:
+    image: postgres:17-alpine
+    container_name: postgres_container
+    environment:
+      POSTGRES_DB: worksync
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: king
+    ports:
+      - "5432:5432"
+    tmpfs:
+      - /var/lib/postgresql/data

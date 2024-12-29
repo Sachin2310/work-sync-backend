@@ -30,6 +30,14 @@ repositories {
 	mavenCentral()
 }
 
+jar {
+	enabled = true
+}
+
+bootJar {
+	archiveFileName = 'worksync-app.jar' // jar file name
+}
+
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
